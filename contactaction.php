@@ -1,55 +1,66 @@
 <?php
-if(isset($_POST['submit'])){
+    $fname=(isset($_POST['fname']))?$_POST['fname']:'';
+     $emaddress=(isset($_POST['email']))?$_POST['email']:'';
+     $subject=(isset($_POST['subject']))?$_POST['subject']:'';
+    $message=(isset($_POST['message']))?$_POST['message']:'';
+ 
+    $to="rohit.prasad@plaxonic.com";   
+ 
+$body="<table cellspacing=1 bgcolor=#89242C cellpadding=2 align=center border=0>"."\n".
 
-# Include the Autoloader (see "Libraries" for install instructions)
-require 'vendor/autoload.php';
-use Mailgun\Mailgun;
-# Instantiate the client.
-$mgClient = new Mailgun('fa2fdec58b9ca13e5b88fa0310f45676-d2cc48bc-d78dddb6');
-$domain = "sandboxe5f05968f9574df5af92dd85e610ddf6.mailgun.org";
-# Make the call to the client.
-$result = $mgClient->sendMessage($domain, array(
-	'from'	=> 'cloud-rec1.herokuapp.com',
-	'to'	=> 'rohit.prasad@plaxonic.com',
-	'subject' => 'Hello',
-	'text'	=> 'Testing some Mailgun awesomness!'
-));
-}
-// require_once 'phpmailer1/src/Exception.php';
-// require_once 'phpmailer1/src/PHPMailer.php';
-// require_once 'phpmailer1/src/SMTP.php';
+                "<tr>
+                    <td width=100% bordercolor=#FFFF99 bgColor=#89242C colspan=3>
+                        <p align=center><font size=3 color=#FFFFFF face=Arial><b>Enquiry From Cloud Recruiting</b></font>
+                    </td>
+                </tr>"."\n".
+                
+           "<tr>"."\n".
+                    "<td bordercolor=#FFFF99 bgColor=#FFFFFF><b><font size=2 face=Arial> Name </font></b></td><td width=1 bgColor=#FFFFFF>:</td>"."\n".
+                    "<td bgcolor=#FFFFFF>". $fname. "</td>"."\n".
 
-// // passing true in constructor enables exceptions in PHPMailer
-// $mail = new PHPMailer(true);
+                "</tr>"."\n".
+                
+                  "<tr>"."\n".
+                    "<td bordercolor=#FFFF99 bgColor=#FFFFFF><b><font size=2 face=Arial> Email Address</font></b></td><td width=1 bgColor=#FFFFFF>:</td>"."\n".
+                    "<td bgcolor=#FFFFFF>". $emaddress. "</td>"."\n".
 
-// try {
-//     // Server settings
-//     $mail->SMTPDebug = SMTP::DEBUG_SERVER; // for detailed debug output
-//     $mail->isSMTP();
-//     $mail->Host = 'smtp.gmail.com';
-//     $mail->SMTPAuth = true;
-//     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-//     $mail->Port = 587;
+                "</tr>"."\n".
+                
+                 "<tr>"."\n".
+                    "<td bordercolor=#FFFF99 bgColor=#FFFFFF><b><font size=2 face=Arial> Subject</font></b></td><td width=1 bgColor=#FFFFFF>:</td>"."\n".
+                    "<td bgcolor=#FFFFFF>". $subject. "</td>"."\n".
 
-//     $mail->Username = 'testingtech57@gmail.com'; // YOUR gmail email
-//     $mail->Password = 'Incorrect@123'; // YOUR gmail password
+                "</tr>"."\n".
+                
+                
+                 "<tr>"."\n".
+                    "<td bordercolor=#FFFF99 bgColor=#FFFFFF><b><font size=2 face=Arial> Message </font></b></td><td width=1 bgColor=#FFFFFF>:</td>"."\n".
+                    "<td bgcolor=#FFFFFF>". $message. "</td>"."\n".
 
-//     // Sender and recipient settings
-//     $mail->setFrom('example@gmail.com', 'Sender Name');
-//     $mail->addAddress('rohit.prasad@plaxonic.com');
+                "</tr>"."\n".
+               
+              
+                "</table>";
+
+$subject = "Enqury For Cloud Recruiting";
+  $headers = "From: Cloud Recruiting <info@cloudrecruiting.com>\r\n";  
+  $headers .= "Organization: Cloud Recruiting\r\n";
+  $headers .= "MIME-Version: 1.0\r\n";
+  //$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+  $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+  $headers .= "X-Priority: Normal\r\n";
+  $headers .= "X-Mailer: PHP". phpversion() ."\r\n" ;
+
+  $returnpath = "<info@cloudrecruiting.com>";
+$additional = "-f$returnpath";
+
+
+   $t= mail($to, $subject, $body, $headers,$additional);
+   if($t){echo 'check';}
+   else{
+       echo 'not sent';
+       
+   }
    
-//     // Setting the email content
-//     $mail->IsHTML(true);
-//     $mail->Subject = "Send email using Gmail SMTP and PHPMailer";
-//     $mail->Body = 'HTML message body. <b>Gmail</b> SMTP email body.';
-//     $mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
-
-//     $mail->send();
-//     echo "Email message sent.";
-// } catch (Exception $e) {
-//     echo "Error in sending email. Mailer Error: {$mail->ErrorInfo}";
-// }
-
-
 
 ?>
