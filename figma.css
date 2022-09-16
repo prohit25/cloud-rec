@@ -75,6 +75,10 @@ html{
     flex-basis: 33%;
 }
 
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+    color: #0d6efd !important;
+}
+
 /*.bannerbgImageSec{
     background-image: url('img/Chicago_taxi.jpg');
     height: 70vh;
